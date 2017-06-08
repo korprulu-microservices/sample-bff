@@ -1,5 +1,6 @@
 package com.sample.bff.service;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.sample.bff.RibbonConfiguration;
 import com.sample.bff.dto.Category;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -17,7 +18,14 @@ public class CategoryService {
         return new RestTemplate();
     }
 
+    @HystrixCommand(fallbackMethod = "reliable")
     public Category getCategory(String id) {
         return restTemplate().getForObject("http://sample-product/categories/" + id, Category.class);
+    }
+
+    public Category reliable() {
+        final Category category = new Category();
+        category.setName("fallback category");
+        return category;
     }
 }
