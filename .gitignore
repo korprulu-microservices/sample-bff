@@ -1,0 +1,14 @@
+*.iml
+*.ipr
+*.iws
+*.ids
+*.log
+*.pyc
+.DS_Store
+.idea/
+.gradle/
+build/
+out/
+bin/
+classes/
+reports/

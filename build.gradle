@@ -1,0 +1,31 @@
+group 'sample-bff'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+
+idea {
+    project {
+        languageLevel = '1.8'
+        jdkName = '1.8'
+
+        ipr {
+            withXml { provider ->
+                provider.node.component
+                        .find { it.@name == 'VcsDirectoryMappings' }
+                        .mapping.@vcs = 'Git'
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:1.5.3.RELEASE")
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
